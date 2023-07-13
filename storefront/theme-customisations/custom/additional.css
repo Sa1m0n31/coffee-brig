@@ -1,0 +1,7 @@
+.woocommerce-product-details__short-description {
+    display: none !important;
+}
+
+.container .new-stuff-container .discount-price li:last-child {
+    color: #AA7E48 !important;
+}

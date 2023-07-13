@@ -7,11 +7,35 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="./mobile.css" />
 </head>
 <body>
 <div class="container">
+    <div class="mobileMenu center">
+        <button class="mobileMenu__close" onclick="closeMenu()">
+            &times;
+        </button>
+
+        <div class="mobileMenu__inner">
+            <img class="mobileMenu__logo" src="./img/logo.png" alt="logo" />
+
+            <a href="#" class="mobileMenu__item">
+                Strona główna
+            </a>
+            <a href="#" class="mobileMenu__item">
+                Sklep
+            </a>
+            <a href="#" class="mobileMenu__item">
+                Koszyk
+            </a>
+            <a href="#" class="mobileMenu__item">
+                Moje konto
+            </a>
+        </div>
+    </div>
+
     <div class="hero">
-        <div class="topBar w flex">
+        <div class="topBar w flex d-desktop">
             <span class="topBar__left">
                 Obsługa klienta: <a href="tel:+48123123123">+48 601 401 102</a>
             </span>
@@ -37,7 +61,7 @@
                     <img class="img" src="./img/logo.png" alt="logo" />
                 </a>
 
-                <div class="topNav__menu flex">
+                <div class="topNav__menu flex d-desktop">
                     <a class="topNav__menu__item"
                        href="#">
                         Home
@@ -58,7 +82,7 @@
                 </div>
             </div>
 
-            <div class="topNav__right flex">
+            <div class="topNav__right flex d-desktop">
                 <a class="topNav__right__item center flex--column" href="#">
                     <img class="icon" src="./img/koszyk.svg" alt="koszyk" />
                     <span>
@@ -70,6 +94,20 @@
                     <span>
                         Panel klienta
                     </span>
+                </a>
+            </div>
+        </div>
+
+        <div class="mobileBar d-mobile">
+            <div class="flex w h-100">
+                <button class="mobileBar__btn" onclick="openMenu()">
+                    <img class="img" src="./img/menu.png" alt="menu" />
+                </button>
+                <a class="mobileBar__btn" href="#">
+                    <img class="img" src="./img/koszyk.svg" alt="koszyk" />
+                </a>
+                <a class="mobileBar__btn" href="#">
+                    <img class="img" src="./img/user.svg" alt="moje-konto" />
                 </a>
             </div>
         </div>
@@ -87,7 +125,7 @@
                 <img class="icon" src="./img/shopping-cart.svg" alt="koszyk" />
             </a>
 
-            <img class="hero__image" src="./img/hero.png" alt="kawa" />
+            <img class="hero__image d-desktop" src="./img/hero.png" alt="kawa" />
         </div>
 
         <div class="hero__points w">
@@ -375,7 +413,7 @@
     </div>
 
     <div class="section">
-        <div class="flex w">
+        <div class="flex flex--mobileColumn flex--historyTop w">
             <div class="section__left">
                 <h4 class="section__header section__header--history">
                     Historia producenta BLASERCAFE
@@ -817,7 +855,7 @@
         <div class="footer__inner">
             <div class="w flex">
                 <div class="footer__col">
-                    <div class="flex flex--start">
+                    <div class="flex flex--start footer__logoWrapper">
                         <a href="#" class="footer__logo">
                             <img class="img" src="./img/logo.png" alt="logo" />
                         </a>
@@ -829,8 +867,10 @@
                         Naszą pasją jest kawa. Daje nam inspirację, energię i miłość. Tym chcemy się z Wami
                         podzielić. Sprzedaż kawy ze Szwajcarii BLASERCAFE.
                     </p>
-                    <p class="footer__text flex flex--start">
-                        Zaprszamy na nasze social media
+                    <p class="footer__text flex flex--start footer__socialMediaWrapper">
+                        <span>
+                            Zaprszamy na nasze social media
+                        </span>
                         <a href="#" target="_blank" class="footer__socialMedia">
                             <img class="img" src="./img/facebook.svg" alt="facebook" />
                         </a>
