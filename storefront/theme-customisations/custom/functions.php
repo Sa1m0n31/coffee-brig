@@ -353,7 +353,7 @@ function coffeebrig_homepage() {
             </a>
         </div>
 
-        <div class="section section--grey">
+        <div class="section section--grey" id="kontakt">
             <div class="w flex">
                 <h5 class="section__header section__header--grey">
                     Zaufało nam już tysiące klientów!
@@ -822,14 +822,14 @@ function add_info_about_free_shipping() {
     if($left > 0) {
         ?>
 
-        <h4 class="freeShippingInfo">
-            <span>
-                Do darmowej dostawy brakuję Ci
-            </span>
-                <span>
-                <?php echo $left; ?> PLN
-            </span>
-        </h4>
+<!--        <h4 class="freeShippingInfo">-->
+<!--            <span>-->
+<!--                Do darmowej dostawy brakuję Ci-->
+<!--            </span>-->
+<!--                <span>-->
+<!--                --><?php //echo $left; ?><!-- PLN-->
+<!--            </span>-->
+<!--        </h4>-->
             <?php
     }
 }
