@@ -222,9 +222,10 @@ a.xcp-btn:hover {
     border-radius: 0;
     color: #000 !important;
     font-weight: 700 !important;
-    margin-bottom: 25px;
     width: fit-content;
     width: -moz-max-content;
+    text-align: center;
+    margin: 0 auto 25px;
 }
 
 #post-10 .entry-title,
@@ -263,6 +264,7 @@ a.xcp-btn:hover {
     width: 100% !important;
 }
 
+.site-content > div > .row.categories,
 .site-main:not(.home .site-main) {
     width: 80% !important;
     max-width: 1400px !important;
@@ -600,6 +602,20 @@ tfoot .woocommerce-Price-amount *:not(#shipping_method *) {
 .ty__header {
     text-align: center;
     margin: 30px auto 15px;
+}
+
+.productPreviewContainer {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 30px;
+    margin-bottom: 80px;
+}
+
+.sectionHeader {
+    font-size: 32px;
+    text-align: center;
+    margin: 0 auto 40px;
+    font-weight: 700;
 }
 
 .ty__subheader {
@@ -1080,11 +1096,13 @@ a:hover, a:focus, a:active {
     position: relative;
     width: 100%;
     height: auto;
+    padding-top: 20px;
     padding-bottom: 20px;
     overflow: hidden;
 }
 
 .home .hero {
+    padding-top: 0;
     padding-bottom: 0;
     border: none;
     height: 100vh;
@@ -1240,12 +1258,12 @@ a:hover, a:focus, a:active {
 
 .hero__content,
 .hero__points {
-    display: none;
+    display: none !important;
 }
 
 .home .hero__content,
 .home .hero__points {
-    display: block;
+    display: block !important;
 }
 
 .hero__content {
@@ -1267,7 +1285,6 @@ a:hover, a:focus, a:active {
 }
 
 .btn--hero {
-    margin: auto;
     font-size: 16px;
     width: 305px;
     height: 50px;
@@ -1738,6 +1755,14 @@ a.footer__item:hover {
     padding-bottom: 30px !important;
 }
 
+.cart .product-quantity {
+    padding: 0 !important;
+}
+
+.shop_table .quantity {
+    min-width: 0 !important;
+}
+
 @media(max-width: 1400px) {
     .hero__content__header,
     .hero__content__text {
@@ -1785,9 +1810,15 @@ a.footer__item:hover {
 }
 
 @media(max-width: 1200px) {
+    .site-content > .col-full > .row.categories,
     .woocommerce-breadcrumb,
     .w {
         width: 90% !important;
+    }
+
+    .productPreviewContainer {
+        grid-template-columns: repeat(3, 1fr);
+        grid-gap: 20px;
     }
 
     .hero::after {
@@ -1842,6 +1873,10 @@ a.footer__item:hover {
     .topNav__logo {
         width: 75px;
         margin: 15px auto;
+    }
+
+    .productPreviewContainer {
+        grid-template-columns: repeat(2, 1fr);
     }
 
     .section__text {
@@ -1950,6 +1985,49 @@ a.footer__item:hover {
         display: block !important;
     }
 
+    .cart-empty {
+        font-size: 19px !important;
+        margin-top: -50px !important;
+        font-weight: 500 !important;
+    }
+
+    .woocommerce-account .woocommerce:not(.dgwt-wcas-search-wrapp) .u-columns h2 {
+        font-weight: 700;
+    }
+
+    .woocommerce-account .entry-title, .woocommerce-checkout .entry-title, .woocommerce-cart .entry-title {
+        font-size: 26px !important;
+    }
+
+    .woocommerce-account .woocommerce:not(.dgwt-wcas-search-wrapp) {
+        height: auto !important;
+        padding: 15px !important;
+        margin: -30px auto 20px !important;
+    }
+
+    .woocommerce-account .woocommerce:not(.dgwt-wcas-search-wrapp) .u-columns > div:last-of-type,
+    .woocommerce-account .woocommerce:not(.dgwt-wcas-search-wrapp) .u-columns > div:first-of-type {
+        width: 100% !important;
+        border-right: 0 !important;
+        padding-right: 0 !important;
+    }
+
+    .storefront-breadcrumb {
+        display: none !important;
+    }
+
+    .hero::after {
+        display: none !important;
+    }
+
+    .productPreviewContainer {
+        grid-template-columns: 1fr;
+    }
+
+    .btn--hero {
+        margin: auto;
+    }
+
     .topNav {
         justify-content: center;
     }
@@ -1982,9 +2060,9 @@ a.footer__item:hover {
         line-height: 30px;
     }
 
-    .hero__content {
+    .home .hero__content {
         margin-top: 50px;
-        display: flex;
+        display: flex !important;
         flex-direction: column;
         justify-content: center;
         align-items: center;
@@ -2021,7 +2099,7 @@ a.footer__item:hover {
         bottom: 20px;
     }
 
-    .hero {
+    .home .hero {
         max-height: 650px;
         min-height: 650px;
     }
