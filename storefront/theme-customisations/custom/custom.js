@@ -694,6 +694,7 @@ class Siema {
 
 let historySlider, productsSlider, productsSliderIndicator;
 let mobileMenu, mobileMenuChildren;
+let productInfoButtons, productInfoContents;
 
 document.addEventListener('DOMContentLoaded', () => {
     try {
@@ -741,9 +742,36 @@ document.addEventListener('DOMContentLoaded', () => {
     mobileMenu = document.querySelector('.mobileMenu');
     mobileMenuChildren = Array.from(document.querySelectorAll('.mobileMenu>*'));
     productsSliderIndicator = document.querySelector('.productsSliderLine__line__indicator');
+
+    productInfoButtons = Array.from(document.querySelectorAll('.btn--productInfo'));
+    productInfoContents = Array.from(document.querySelectorAll('.productInfo__main>div'));
+
+    if(productInfoContents?.length === 2) {
+        productInfoContents[1].classList.add('d-none');
+    }
 });
 
 const numberOfProducts = 16;
+
+const changeProductInfo = (n) => {
+    productInfoButtons.forEach((item, index) => {
+        if(index === n) {
+            item.classList.add('btn--productInfo--active');
+        }
+        else {
+            item.classList.remove('btn--productInfo--active');
+        }
+    });
+
+    productInfoContents.forEach((item, index) => {
+        if(index === n) {
+            item.classList.remove('d-none');
+        }
+        else {
+            item.classList.add('d-none');
+        }
+    })
+}
 
 const getCurrentSlide = () => {
     const currentSlide = productsSlider.currentSlide;

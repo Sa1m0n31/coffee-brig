@@ -49,11 +49,11 @@ function coffeebrig_header() {
             <a href="<?php echo get_page_link(get_page_by_title('Sklep')->ID); ?>" class="mobileMenu__item">
                 Sklep
             </a>
-            <a href="<?php echo wc_get_cart_url(); ?>" class="mobileMenu__item">
-                Koszyk
+            <a href="<?php echo get_page_link(get_page_by_title('Wpisy')->ID); ?>" class="mobileMenu__item">
+                Blog
             </a>
-            <a href="<?php echo get_page_link(get_page_by_title('Moje konto')->ID); ?>" class="mobileMenu__item">
-                Moje konto
+            <a onclick="closeMenu()" href="<?php echo home_url(); ?>#kontakt" class="mobileMenu__item">
+                Kontakt
             </a>
         </div>
     </div>
@@ -96,7 +96,7 @@ function coffeebrig_header() {
                         <img class="icon" src="<?php echo get_bloginfo("stylesheet_directory") . "/img/shopping-cart.svg"; ?>" alt="koszyk" />
                     </a>
                     <a class="topNav__menu__item"
-                       href="<?php echo get_page_link(get_page_by_title('Blog')->ID); ?>">
+                       href="<?php echo get_page_link(get_page_by_title('Wpisy')->ID); ?>">
                         Blog
                     </a>
                     <a class="topNav__menu__item"
@@ -660,6 +660,50 @@ add_action('woocommerce_after_single_product_summary', 'coffeebrig_after_single_
 
 function coffeebrig_after_single_product_summary() {
 	?>
+        <div class="section">
+            <div class="productInfo__header">
+                <button class="btn btn--productInfo btn--productInfo--active"
+                        onclick="changeProductInfo(0)">
+                    Właściwości
+                </button>
+                <button class="btn btn--productInfo"
+                        onclick="changeProductInfo(1)">
+                    Pochodzenie
+                </button>
+            </div>
+
+            <div class="productInfo__main">
+                <div class="productInfo__main__attributes">
+                    <?php
+                        for($i=1; $i<=10; $i++) {
+                            if(get_field('atrybut_ikonka_' . $i)) {
+                                ?>
+                                    <div class="productInfo__attribute">
+                                        <img class="icon" src="<?php echo get_field('atrybut_ikonka_' . $i); ?>" alt="ikonka" />
+                                        <h3 class="productInfo__attribute__title">
+                                            <?php
+                                                echo get_field('atrybut_tytul_' . $i);
+                                            ?>
+                                        </h3>
+                                        <p class="productInfo__attribute__text">
+                                            <?php
+                                                echo get_field('atrybut_tekst_' . $i);
+                                            ?>
+                                        </p>
+                                    </div>
+                                    <?php
+                            }
+                        }
+                    ?>
+                </div>
+                <div class="productInfo__main__origin">
+                    <?php
+                        echo get_field('kraj_pochodzenia');
+                    ?>
+                </div>
+            </div>
+        </div>
+
     <div class="section w">
         <h3 class="section__header center">
             Zobacz nasze produkty
@@ -764,12 +808,6 @@ function coffeebrig_before_single_product_summary() {
 			echo $product->get_name();
 			?>
         </h1>
-        <h2 class="productHeader__price">
-			<?php
-			echo $product->get_price();
-			?>
-            PLN
-        </h2>
     </div>
 
 	<?php

@@ -2,7 +2,8 @@
 get_header();
 ?>
 
+abc
 
 <?php
-//get_footer();
+get_footer();
 ?>
