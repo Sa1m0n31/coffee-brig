@@ -293,13 +293,16 @@ function coffeebrig_homepage() {
                                 'cat' => $category_id,
                                 'post_type' => 'post',
                                 'post_status' => 'publish',
-                                'posts_per_page' => 4,
+                                'posts_per_page' => -1,
                                 'tax_query' => array(
                                     array(
                                         'taxonomy' => 'category',
                                         'field'    => 'term_id',
                                         'terms'    => $category_id
                                     ),
+                                ),
+                                'orderby'   => array(
+                                    'date' => 'ASC'
                                 )
                             );
 

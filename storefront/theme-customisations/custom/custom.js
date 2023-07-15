@@ -710,7 +710,7 @@ document.addEventListener('DOMContentLoaded', () => {
             startIndex: 0,
             threshold: 20,
             loop: true,
-            draggable: false
+            draggable: window.innerWidth <= 768
         });
     }
     catch(e) {
