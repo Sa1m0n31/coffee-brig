@@ -49,6 +49,12 @@ function coffeebrig_header() {
             <a href="<?php echo get_page_link(get_page_by_title('Sklep')->ID); ?>" class="mobileMenu__item">
                 Sklep
             </a>
+            <a href="<?php echo get_page_link(get_page_by_title('O producencie')->ID); ?>" class="mobileMenu__item">
+                O producencie
+            </a>
+            <a href="<?php echo get_page_link(get_page_by_title('Współpraca')->ID); ?>" class="mobileMenu__item">
+                Współpraca
+            </a>
             <a href="<?php echo get_page_link(get_page_by_title('Wpisy')->ID); ?>" class="mobileMenu__item">
                 Blog
             </a>
@@ -86,16 +92,24 @@ function coffeebrig_header() {
                 </a>
 
                 <div class="topNav__menu flex d-desktop">
-                    <a class="topNav__menu__item"
+                    <a class="topNav__menu__item <?php if(is_front_page()) echo 'topNav__menu__item--current'; ?>"
                        href="<?php echo home_url(); ?>">
                         Home
                     </a>
-                    <a class="topNav__menu__item"
+                    <a class="<?php if(is_shop()) echo 'topNav__menu__item--current'; ?> topNav__menu__item"
                        href="<?php echo get_page_link(get_page_by_title('Sklep')->ID); ?>">
                         Sklep
                         <img class="icon" src="<?php echo get_bloginfo("stylesheet_directory") . "/img/shopping-cart.svg"; ?>" alt="koszyk" />
                     </a>
-                    <a class="topNav__menu__item"
+                    <a class="<?php if(get_the_title() === 'O producencie') echo 'topNav__menu__item--current'; ?> topNav__menu__item"
+                       href="<?php echo get_page_link(get_page_by_title('O producencie')->ID); ?>">
+                        O producencie
+                    </a>
+                    <a class="<?php if(get_the_title() === 'Współpraca') echo 'topNav__menu__item--current'; ?> topNav__menu__item"
+                       href="<?php echo get_page_link(get_page_by_title('Współpraca')->ID); ?>">
+                        Współpraca
+                    </a>
+                    <a class="<?php if(get_the_title() === 'Wpisy') echo 'topNav__menu__item--current'; ?> topNav__menu__item"
                        href="<?php echo get_page_link(get_page_by_title('Wpisy')->ID); ?>">
                         Blog
                     </a>
@@ -139,19 +153,40 @@ function coffeebrig_header() {
         </div>
 
         <div class="hero__content w">
-            <h1 class="hero__content__header">
-                Hej, jesteśmy COFFEE BRIG!
-            </h1>
-            <h2 class="hero__content__text">
-                Naszą pasją jest kawa. Daje nam inspirację, energię i miłość.
-                Tym chcemy się z Wami podzielić. Sprzedaż kawy ze Szwajcarii BLASERCAFE.
-            </h2>
-            <a class="btn btn--hero" href="<?php echo get_page_link(get_page_by_title('Sklep')->ID); ?>">
-                Przejdź do sklepu
-                <img class="icon" src="<?php echo get_bloginfo("stylesheet_directory") . "/img/shopping-cart.svg"; ?>" alt="koszyk" />
-            </a>
+            <?php
+            $category = get_category_by_slug('slider');
+            $category_id = $category->term_id;
+            $i = 1;
 
-            <img class="hero__image d-desktop" src="<?php echo get_bloginfo("stylesheet_directory") . "/img/hero.png"; ?>" alt="kawa" />
+            $args = array(
+                'cat' => $category_id,
+                'post_type' => 'post',
+                'post_status' => 'publish',
+                'posts_per_page' => 3
+            );
+
+            $query = new WP_Query($args);
+
+            if ($query->have_posts()) {
+                while ($query->have_posts()) {
+                    $query->the_post();
+
+                    $image_id = get_post_thumbnail_id();
+                    $image_url = wp_get_attachment_image_src($image_id, 'full');
+                    $image_src = $image_url[0];
+
+                    ?>
+
+                    <div class="hero__content__item" id="slider-<?php echo $i; ?>">
+                        <img class="img" src="<?php echo $image_src; ?>" alt="baner" />
+                    </div>
+                    <?php
+                    $i++;
+                }
+            }
+
+            wp_reset_postdata();
+            ?>
         </div>
 
         <div class="hero__points w">
@@ -159,21 +194,30 @@ function coffeebrig_header() {
                 <div class="hero__points__item">
                     <img class="img" src="<?php echo get_bloginfo("stylesheet_directory") . "/img/original.svg"; ?>" alt="point" />
                     <span>
-                            Oryginalna szwajcarska kawa
-                        </span>
+                        Oryginalna szwajcarska kawa
+                    </span>
                 </div>
                 <div class="hero__points__item">
                     <img class="img" src="<?php echo get_bloginfo("stylesheet_directory") . "/img/coffee-beans.svg"; ?>" alt="point" />
                     <span>
-                            Z pasji do kawy
-                        </span>
+                        Z pasji do kawy
+                    </span>
                 </div>
                 <div class="hero__points__item">
                     <img class="img" src="<?php echo get_bloginfo("stylesheet_directory") . "/img/coffee-cup.svg"; ?>" alt="point" />
                     <span>
-                            Wyjątkowy smak i aromat
-                        </span>
+                        Wyjątkowy smak i aromat
+                    </span>
                 </div>
+            </div>
+
+            <div class="hero__points__arrows d-desktop">
+                <button class="btn--mainSlider btn--mainSlider--prev" onclick="mainPrevSlide()">
+                    <img class="img" src="<?php echo get_bloginfo("stylesheet_directory") . "/img/right-arrow.svg"; ?>" alt="prev" />
+                </button>
+                <button class="btn--mainSlider" onclick="mainNextSlide()">
+                    <img class="img" src="<?php echo get_bloginfo("stylesheet_directory") . "/img/right-arrow.svg"; ?>" alt="prev" />
+                </button>
             </div>
         </div>
     </div>
@@ -186,10 +230,10 @@ function coffeebrig_homepage() {
 	?>
 
         <div class="section w">
-            <h3 class="section__header">
+            <h3 class="section__header section__header--homepage">
                 Zobacz nasze produkty
             </h3>
-            <p class="section__text">
+            <p class="section__text section__text--homepage">
                 Aromatyczna i pobudzająca szwajcarska kawa BLASERCAFE w różnych wariantach.
             </p>
 
@@ -348,9 +392,7 @@ function coffeebrig_homepage() {
                 </div>
             </div>
 
-            <a href="https://www.blasercafe.ch/en/about-us/history"
-               target="_blank"
-               rel="noreferrer"
+            <a href="<?php echo get_page_link(get_page_by_title('O producencie')->ID); ?>"
                class="btn btn--history">
                 Poznaj bliżej historię producenta
             </a>
@@ -376,7 +418,7 @@ function coffeebrig_homepage() {
                     <a class="btn btn--history btn--sectionGrey"
                        target="_blank"
                        href="https://www.blasercafe.ch/en/contact-us">
-                        Skontaktuj się i dołącz do grona naszych partnerów
+                        Zobacz, co możemy zaoferować
                     </a>
                 </div>
             </div>
@@ -508,6 +550,9 @@ function coffeebrig_footer() {
                         </a>
                         <a class="footer__item" href="<?php echo get_page_link(get_page_by_title('Polityka prywatności')->ID); ?>">
                             Polityka prywatności
+                        </a>
+                        <a class="footer__item" href="<?php echo get_page_link(get_page_by_title('Dostawa i zwroty')->ID); ?>">
+                            Dostawa i zwroty
                         </a>
                     </div>
 
@@ -675,24 +720,38 @@ function coffeebrig_after_single_product_summary() {
             <div class="productInfo__main">
                 <div class="productInfo__main__attributes">
                     <?php
-                        for($i=1; $i<=10; $i++) {
-                            if(get_field('atrybut_ikonka_' . $i)) {
+//                        for($i=1; $i<=10; $i++) {
+//                            if(get_field('atrybut_ikonka_' . $i)) {
+//                                ?>
+<!--                                    <div class="productInfo__attribute">-->
+<!--                                        <img class="icon" src="--><?php //echo get_field('atrybut_ikonka_' . $i); ?><!--" alt="ikonka" />-->
+<!--                                        <h3 class="productInfo__attribute__title">-->
+<!--                                            --><?php
+//                                                echo get_field('atrybut_tytul_' . $i);
+//                                            ?>
+<!--                                        </h3>-->
+<!--                                        <p class="productInfo__attribute__text">-->
+<!--                                            --><?php
+//                                                echo get_field('atrybut_tekst_' . $i);
+//                                            ?>
+<!--                                        </p>-->
+<!--                                    </div>-->
+<!--                                    --><?php
+//                            }
+//                        }
+
+                        for($i=1; $i<=7; $i++) {
                                 ?>
-                                    <div class="productInfo__attribute">
-                                        <img class="icon" src="<?php echo get_field('atrybut_ikonka_' . $i); ?>" alt="ikonka" />
-                                        <h3 class="productInfo__attribute__title">
-                                            <?php
-                                                echo get_field('atrybut_tytul_' . $i);
-                                            ?>
-                                        </h3>
-                                        <p class="productInfo__attribute__text">
-                                            <?php
-                                                echo get_field('atrybut_tekst_' . $i);
-                                            ?>
-                                        </p>
-                                    </div>
-                                    <?php
-                            }
+                                <div class="productInfo__attribute">
+                                    <img class="icon" src="http://coffee-brig.skylo-test3.pl/wp-content/uploads/2023/07/coffee.png" alt="ikonka" />
+                                    <h3 class="productInfo__attribute__title">
+                                        Nagłówek
+                                    </h3>
+                                    <p class="productInfo__attribute__text">
+                                        Tekst atrybutu
+                                    </p>
+                                </div>
+                                <?php
                         }
                     ?>
                 </div>
@@ -704,7 +763,7 @@ function coffeebrig_after_single_product_summary() {
             </div>
         </div>
 
-    <div class="section w">
+    <div class="section section--marginTop w">
         <h3 class="section__header center">
             Zobacz nasze produkty
         </h3>

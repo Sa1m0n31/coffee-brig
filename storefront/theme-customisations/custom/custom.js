@@ -692,11 +692,28 @@ class Siema {
     }
 }
 
+let mainSlider;
 let historySlider, productsSlider, productsSliderIndicator;
 let mobileMenu, mobileMenuChildren;
 let productInfoButtons, productInfoContents;
 
 document.addEventListener('DOMContentLoaded', () => {
+    try {
+        mainSlider = new Siema({
+            selector: '.hero__content',
+            duration: 400,
+            easing: 'ease-out',
+            perPage: 1,
+            startIndex: 0,
+            threshold: 20,
+            loop: true,
+            draggable: window.innerWidth < 996
+        });
+    }
+    catch(e) {
+
+    }
+
     try {
         productsSlider = new Siema({
             selector: '.productsSlider',
@@ -798,6 +815,14 @@ const getProductsSliderIndicatorPosition = () => {
 
 const changeIndicatorPosition = () => {
     productsSliderIndicator.style.left = `${getProductsSliderIndicatorPosition()}%`;
+}
+
+const mainPrevSlide = () => {
+    mainSlider.prev();
+}
+
+const mainNextSlide = () => {
+    mainSlider.next();
 }
 
 const productsPrevSlide = () => {
